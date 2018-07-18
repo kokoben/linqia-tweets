@@ -1,8 +1,12 @@
 import React from 'react';
+import TweetsForm from './tweets-form';
+import TweetsList from '../containers/tweets-list';
 
 const Tweets = () => (
   <div>
-    hello
+    <h1>Twitter Content Lab</h1>
+    <TweetsForm />
+    <TweetsList />
   </div>
 );
 
