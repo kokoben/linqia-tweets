@@ -1,5 +1,5 @@
 import React from 'react';
-import TweetsForm from './tweets-form';
+import TweetsForm from '../containers/tweets-form';
 import TweetsList from '../containers/tweets-list';
 
 const Tweets = () => (
