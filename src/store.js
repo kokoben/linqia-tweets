@@ -2,10 +2,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
-import throttle from 'lodash/throttle';
 import rootSaga from './root-saga';
 import rootReducer from './root-reducer';
-import { loadState, saveState } from './local-storage';
 
 export const history = createHistory();
 
@@ -26,17 +24,12 @@ const configureStore = () => {
   /* eslint-disable no-underscore-dangle */
   // eslint-disable-next-line no-undef
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const persistedState = loadState();
+  const initialState = {};
   const store = createStore(
     rootReducer,
-    persistedState,
+    initialState,
     composeEnhancers(applyMiddleware(...middlewares)),
   );
-
-  store.subscribe(throttle(() => {
-    saveState(store.getState());
-  }, 1000));
-
   /* eslint-enable */
 
   sagaMiddleware.run(rootSaga);
