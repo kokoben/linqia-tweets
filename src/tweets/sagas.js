@@ -18,12 +18,11 @@ const getRandStr = (length) => {
 
 const authApi = {
   register(query, options) {
-    console.log(options.headers);
-    return fetch('https://cors-anywhere.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json' + '?q=' + query + '?count=100', options)
+    console.log('query', query);
+    return fetch('https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json' + '?q=' + encodeURIComponent(query) + '?count=1', options)
       .then(response => response.json())
       .catch(error => error)
       .then((data) => {
-        console.log('final data', data);
         return data;
       });
   },
@@ -39,7 +38,6 @@ export function* getTweetsAsync(action) {
     const url = 'https://api.twitter.com/1.1/search/tweets.json';
     const time = Date.now() / 1000;
     const parameters = {
-      include_entities: true,
       oauth_consumer_key: consumerKey,
       oauth_nonce: nonce,
       oauth_signature_method: 'HMAC-SHA1',
@@ -50,15 +48,14 @@ export function* getTweetsAsync(action) {
 
     // generate a BASE64 encoded HMAC-SHA1 hash
     // eslint-disable-next-line max-len
-    const signature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret, { encodedSignature: false });
-    console.log('signature', signature);
+    const encodedSignature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret);
 
     const options = {
       method: 'get',
       headers: {
         Authorization: 'OAuth ' + encodeURIComponent('oauth_consumer_key') + '="' + encodeURIComponent(parameters.oauth_consumer_key) + '"' +
         ', ' + encodeURIComponent('oauth_nonce') + '="' + encodeURIComponent(parameters.oauth_nonce) + '", ' + encodeURIComponent('oauth_signature') + '="' +
-        encodeURIComponent(signature) + '", ' + encodeURIComponent('oauth_signature_method') + '="' +
+        encodedSignature + '", ' + encodeURIComponent('oauth_signature_method') + '="' +
         encodeURIComponent(parameters.oauth_signature_method) + '", ' + encodeURIComponent('oauth_timestamp') + '="' +
         encodeURIComponent(parameters.oauth_timestamp) + '", ' + encodeURIComponent('oauth_token') + '="' +
         encodeURIComponent(parameters.oauth_token) + '", ' + encodeURIComponent('oauth_version') + '="' + encodeURIComponent(parameters.oauth_version) + '"',
@@ -67,7 +64,6 @@ export function* getTweetsAsync(action) {
 
     // send the request
     const data = yield call(authApi.register, action.query, options);
-    console.log(data);
     yield put({ type: actions.TWEETS_GET_SUCCESS, data });
   } catch (e) {
     yield put({ type: actions.TWEETS_GET_FAIL, message: e.message });
