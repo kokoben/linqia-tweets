@@ -19,7 +19,8 @@ const getRandStr = (length) => {
 const authApi = {
   register(query, options) {
     console.log('query', query);
-    return fetch('https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json' + '?q=' + encodeURIComponent(query) + '?count=1', options)
+    console.log(options.headers);
+    return fetch("https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json?q=" + encodeURIComponent(query) + "&count=100", options)
       .then(response => response.json())
       .catch(error => error)
       .then((data) => {
@@ -38,6 +39,8 @@ export function* getTweetsAsync(action) {
     const url = 'https://api.twitter.com/1.1/search/tweets.json';
     const time = Date.now() / 1000;
     const parameters = {
+      q: action.query,
+      count: 100,
       oauth_consumer_key: consumerKey,
       oauth_nonce: nonce,
       oauth_signature_method: 'HMAC-SHA1',
@@ -48,14 +51,15 @@ export function* getTweetsAsync(action) {
 
     // generate a BASE64 encoded HMAC-SHA1 hash
     // eslint-disable-next-line max-len
-    const encodedSignature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret);
+    const signature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret, { encodeSignature: false });
+    console.log('signature', signature);
 
     const options = {
       method: 'get',
       headers: {
         Authorization: 'OAuth ' + encodeURIComponent('oauth_consumer_key') + '="' + encodeURIComponent(parameters.oauth_consumer_key) + '"' +
         ', ' + encodeURIComponent('oauth_nonce') + '="' + encodeURIComponent(parameters.oauth_nonce) + '", ' + encodeURIComponent('oauth_signature') + '="' +
-        encodedSignature + '", ' + encodeURIComponent('oauth_signature_method') + '="' +
+        encodeURIComponent(signature) + '", ' + encodeURIComponent('oauth_signature_method') + '="' +
         encodeURIComponent(parameters.oauth_signature_method) + '", ' + encodeURIComponent('oauth_timestamp') + '="' +
         encodeURIComponent(parameters.oauth_timestamp) + '", ' + encodeURIComponent('oauth_token') + '="' +
         encodeURIComponent(parameters.oauth_token) + '", ' + encodeURIComponent('oauth_version') + '="' + encodeURIComponent(parameters.oauth_version) + '"',
