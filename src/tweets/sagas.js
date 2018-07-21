@@ -7,15 +7,18 @@ import { consumerKey, accessToken, tokenSecret, consumerSecret } from '../keys';
 
 promise.polyfill();
 
-const getRandStr = () => {
-  const rand = (Math.random() + 1).toString(36).slice(2);
-  // if string value is too small and no longer alphanumeric,
-  // try again.
-  return rand;
+const getRandStr = (length) => {
+  let str = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+    str += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return str;
 };
 
 const authApi = {
   register(query, options) {
+    console.log(options.headers);
     return fetch('https://cors-anywhere.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json' + '?q=' + query + '?count=100', options)
       .then(response => response.json())
       .catch(error => error)
@@ -31,17 +34,17 @@ const authApi = {
 export function* getTweetsAsync(action) {
   try {
     // create oauth signature
-    const nonce = getRandStr();
-    const time = Date.now();
+    const nonce = getRandStr(32);
     const httpMethod = 'GET';
     const url = 'https://api.twitter.com/1.1/search/tweets.json';
+    const time = Date.now() / 1000;
     const parameters = {
       include_entities: true,
       oauth_consumer_key: consumerKey,
-      oauth_token: accessToken,
       oauth_nonce: nonce,
+      oauth_signature_method: 'HMAC-SHA1',
       oauth_timestamp: time,
-      oauth_signature_method: 'HMAC_SHA1',
+      oauth_token: accessToken,
       oauth_version: '1.0',
     };
 
@@ -53,12 +56,12 @@ export function* getTweetsAsync(action) {
     const options = {
       method: 'get',
       headers: {
-        Authorization: 'OAuth oauth_consumer_key="' + encodeURIComponent(parameters.oauth_consumer_key) + '"' +
-        ', oauth_nonce="' + encodeURIComponent(parameters.oauth_nonce) + '", oauth_signature="' +
-        encodeURIComponent(parameters.oauth_signature) + '", oauth_signature_method="' +
-        encodeURIComponent(parameters.oauth_signature_method) + '", oauth_timestamp="' +
-        encodeURIComponent(parameters.oauth_timestamp) + '", oauth_token="' +
-        encodeURIComponent(parameters.oauth_token) + '", oauth_version="' + encodeURIComponent(parameters.oauth_version),
+        Authorization: 'OAuth ' + encodeURIComponent('oauth_consumer_key') + '="' + encodeURIComponent(parameters.oauth_consumer_key) + '"' +
+        ', ' + encodeURIComponent('oauth_nonce') + '="' + encodeURIComponent(parameters.oauth_nonce) + '", ' + encodeURIComponent('oauth_signature') + '="' +
+        encodeURIComponent(signature) + '", ' + encodeURIComponent('oauth_signature_method') + '="' +
+        encodeURIComponent(parameters.oauth_signature_method) + '", ' + encodeURIComponent('oauth_timestamp') + '="' +
+        encodeURIComponent(parameters.oauth_timestamp) + '", ' + encodeURIComponent('oauth_token') + '="' +
+        encodeURIComponent(parameters.oauth_token) + '", ' + encodeURIComponent('oauth_version') + '="' + encodeURIComponent(parameters.oauth_version) + '"',
       },
     };
 
