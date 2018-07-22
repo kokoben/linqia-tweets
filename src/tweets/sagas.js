@@ -10,13 +10,13 @@ promise.polyfill();
 const getRandStr = (length) => {
   let str = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i += 1) {
     str += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return str;
 };
 
-const authApi = {
+const callApi = {
   register(query, options) {
     console.log('query', query);
     console.log(options.headers);
@@ -67,7 +67,7 @@ export function* getTweetsAsync(action) {
     };
 
     // send the request
-    const data = yield call(authApi.register, action.query, options);
+    const data = yield call(callApi.register, action.query, options);
     yield put({ type: actions.TWEETS_GET_SUCCESS, data });
   } catch (e) {
     yield put({ type: actions.TWEETS_GET_FAIL, message: e.message });

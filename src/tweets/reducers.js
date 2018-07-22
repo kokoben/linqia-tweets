@@ -5,7 +5,7 @@ import * as actions from './actions/types';
 export const tweets = (state = {}, action) => {
   switch (action.type) {
     case actions.TWEETS_GET_SUCCESS:
-      return action.response;
+      return action.data;
     case actions.TWEETS_GET_FAIL:
       console.log(action.message);
       break;
@@ -36,4 +36,6 @@ export const sort = (state = 'none', action) => {
 
 export default combineReducers({
   tweets,
+  count,
+  sort,
 });
