@@ -23,6 +23,23 @@ class TweetsForm extends Component {
           <label>Hash Tags</label>
           <Field name="hashtags" component="input" />
         </div>
+        <div>
+          <label>Count</label>
+          <Field name="count" component="select">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+          </Field>
+        </div>
+        <div>
+          <label>Sort by</label>
+          <Field name="sort" component="select">
+            <option>None</option>
+            <option>Favorite Count</option>
+            <option>Retweet Count</option>
+          </Field>
+        </div>
         <button type="submit">Search</button>
       </form>
     );
