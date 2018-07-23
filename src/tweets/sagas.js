@@ -18,14 +18,10 @@ const getRandStr = (length) => {
 
 const callApi = {
   register(query, options) {
-    console.log('query', query);
-    console.log(options.headers);
-    return fetch("https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json?q=" + encodeURIComponent(query) + "&count=100", options)
+    return fetch('https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json?q=' + encodeURIComponent(query) + '&count=100', options)
       .then(response => response.json())
       .catch(error => error)
-      .then((data) => {
-        return data;
-      });
+      .then(data => data);
   },
 };
 
