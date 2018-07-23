@@ -56,11 +56,11 @@ class TweetsForm extends Component {
       <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <div>
           <label>Hash Tags</label>
-          <Field name="hashtags" component="input" />
+          <Field className="hashtags-input" name="hashtags" component="input" />
         </div>
         <div>
           <label>Count</label>
-          <Field name="count" component="select">
+          <Field className="count-selector" name="count" component="select">
             <option>10</option>
             <option>20</option>
             <option>50</option>
@@ -69,7 +69,7 @@ class TweetsForm extends Component {
         </div>
         <div>
           <label>Sort by</label>
-          <Field name="sort" component="select">
+          <Field className="sort-selector" name="sort" component="select">
             <option>None</option>
             <option>Favorite Count</option>
             <option>Retweet Count</option>
