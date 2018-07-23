@@ -25,7 +25,14 @@ class TweetsList extends Component {
     return tweets;
   }
   render() {
-    console.log('in render', this.props.sortedTweets)
+    console.log('in render', this.props.sortedTweets);
+    if (this.props.loading) {
+      return (
+        <div className="list">
+          Loading...
+        </div>
+      );
+    }
     if (!this.props.tweets) {
       return (
         <div className="list">
@@ -33,7 +40,7 @@ class TweetsList extends Component {
         </div>
       );
     }
-    if (!this.props.sortedTweets) {
+    if (this.props.sortedTweets.length === 0) {
       return (
         <div className="list">
           No tweets found.
@@ -52,12 +59,15 @@ class TweetsList extends Component {
 /* eslint-disable react/forbid-prop-types */
 TweetsList.propTypes = {
   sortedTweets: PropTypes.array.isRequired,
+  tweets: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 /* eslint-enable */
 
 const mapStateToProps = state => ({
   tweets: state.tweets.tweets,
   sortedTweets: TweetsSelector(state),
+  loading: state.tweets.loading,
 });
 
 export default connect(mapStateToProps, null)(TweetsList);

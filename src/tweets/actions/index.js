@@ -5,3 +5,8 @@ export const getTweets = query => ({
   query,
 });
 
+export const updateLoading = loading => ({
+  type: actions.LOADING_UPDATE,
+  loading,
+});
+

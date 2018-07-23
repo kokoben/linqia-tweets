@@ -15,6 +15,16 @@ export const tweets = (state = null, action) => {
 };
 /* eslint-enable */
 
+export const loading = (state = false, action) => {
+  switch (action.type) {
+    case actions.LOADING_UPDATE:
+      return action.loading;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   tweets,
+  loading,
 });

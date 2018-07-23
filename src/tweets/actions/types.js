@@ -1,4 +1,5 @@
 export const TWEETS_GET = 'TWEETS_GET';
 export const TWEETS_GET_SUCCESS = 'TWEETS_GET_SUCCESS';
 export const TWEETS_GET_FAIL = 'TWEETS_GET_FAIL';
+export const LOADING_UPDATE = 'LOADING_UPDATE';
 

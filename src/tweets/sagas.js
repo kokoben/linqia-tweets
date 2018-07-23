@@ -65,6 +65,9 @@ export function* getTweetsAsync(action) {
 
     // send the request
     const data = yield call(callApi.register, action.query, options);
+    // upon receiving the response, change loading status to false.
+    yield put({ type: actions.LOADING_UPDATE, loading: false });
+    // update state with the response data.
     yield put({ type: actions.TWEETS_GET_SUCCESS, data });
   } catch (e) {
     yield put({ type: actions.TWEETS_GET_FAIL, message: e.message });

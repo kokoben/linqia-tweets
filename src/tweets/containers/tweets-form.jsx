@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { getTweets } from '../actions';
+import { getTweets, updateLoading} from '../actions';
 
 class TweetsForm extends Component {
   constructor(props) {
@@ -48,6 +48,8 @@ class TweetsForm extends Component {
     // join arr of hashtags back into a string with spaces between each hashtag.
     const queryStr = queryArrTrimmed.join(' OR ');
     console.log('trimmed query str', queryStr);
+    // show loading message and then make the search.
+    this.props.updateLoading(true);
     this.props.getTweets(queryStr);
   }
 
@@ -84,6 +86,7 @@ class TweetsForm extends Component {
 TweetsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   getTweets: PropTypes.func.isRequired,
+  updateLoading: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -95,6 +98,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getTweets,
+    updateLoading,
   }, dispatch)
 );
 
