@@ -11,7 +11,7 @@ const getSortedTweets = (tweets, count, sort) => {
 
   // first sort the list. don't bother sorting it if sort is set to none.
   const sortedList = tweets.statuses.slice();
-  if (sort === 'Retweet  Count') {
+  if (sort === 'Retweet Count') {
     sortedList.sort((a, b) => b.retweet_count - a.retweet_count);
   } else if (sort === 'Favorite Count') {
     sortedList.sort((a, b) => b.favorite_count - a.favorite_count);
