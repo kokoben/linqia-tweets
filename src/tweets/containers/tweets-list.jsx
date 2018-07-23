@@ -26,6 +26,13 @@ class TweetsList extends Component {
   }
   render() {
     console.log('in render', this.props.sortedTweets)
+    if (!this.props.tweets) {
+      return (
+        <div className="list">
+          Enter some hashtags.
+        </div>
+      );
+    }
     if (!this.props.sortedTweets) {
       return (
         <div className="list">
@@ -49,6 +56,7 @@ TweetsList.propTypes = {
 /* eslint-enable */
 
 const mapStateToProps = state => ({
+  tweets: state.tweets.tweets,
   sortedTweets: TweetsSelector(state),
 });
 
