@@ -5,11 +5,6 @@ export const getTweets = query => ({
   query,
 });
 
-export const updateCount = count => ({
-  type: actions.COUNT_UPDATE,
-  count,
-});
-
 export const updateSort = sort => ({
   type: actions.SORT_UPDATE,
   sort,

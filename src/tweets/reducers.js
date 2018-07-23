@@ -14,15 +14,6 @@ export const tweets = (state = null, action) => {
   }
 };
 
-export const count = (state = 10, action) => {
-  switch (action.type) {
-    case actions.COUNT_UPDATE:
-      return action.count;
-    default:
-      return state;
-  }
-};
-
 export const sort = (state = 'none', action) => {
   switch (action.type) {
     case action.SORT_UPDATE:
@@ -36,6 +27,5 @@ export const sort = (state = 'none', action) => {
 
 export default combineReducers({
   tweets,
-  count,
   sort,
 });
