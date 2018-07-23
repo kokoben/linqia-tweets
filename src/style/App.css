@@ -3,6 +3,7 @@ p {
 }
 
 .header {
+  color: #239cef;
   text-align: center;
 }
 
@@ -29,6 +30,14 @@ p {
   padding: 5px;
   border: 2px solid grey;
   border-radius: 5px;
+}
+
+.hashtags-field {
+  margin-bottom: 10px;
+}
+
+.tip {
+  font-size: 0.8em;
 }
 
 .hashtags-input, .count-selector, .sort-selector {

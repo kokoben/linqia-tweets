@@ -56,9 +56,10 @@ class TweetsForm extends Component {
   render() {
     return (
       <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <div>
+        <div className="hashtags-field">
           <label>Hash Tags</label>
           <Field className="hashtags-input" name="hashtags" component="input" />
+          <span className="tip">(Enter each hashtag with or without the '#'. Separate each hashtag with a space.)</span>
         </div>
         <div>
           <label>Count</label>

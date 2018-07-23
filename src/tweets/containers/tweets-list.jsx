@@ -58,8 +58,8 @@ class TweetsList extends Component {
 
 /* eslint-disable react/forbid-prop-types */
 TweetsList.propTypes = {
-  sortedTweets: PropTypes.array.isRequired,
-  tweets: PropTypes.array.isRequired,
+  sortedTweets: PropTypes.array,
+  tweets: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 /* eslint-enable */
