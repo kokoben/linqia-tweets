@@ -12,7 +12,6 @@ class TweetsForm extends Component {
   }
 
   onSubmit(values) {
-    console.log('props in form: ', values.hashtags);
     // parse query by trimming spaces and adding hashtags if necessary.
     // if there's more than one hashtag, add OR operators between them
     // to get tweets that contain one more of those hashtags.
@@ -47,7 +46,7 @@ class TweetsForm extends Component {
     }
     console.log('trimmed query arr', queryArrTrimmed);
     // join arr of hashtags back into a string with spaces between each hashtag.
-    const queryStr = queryArrTrimmed.join(' ');
+    const queryStr = queryArrTrimmed.join(' OR ');
     console.log('trimmed query str', queryStr);
     this.props.getTweets(values.hashtags);
   }
