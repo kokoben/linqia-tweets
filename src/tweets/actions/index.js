@@ -5,7 +5,3 @@ export const getTweets = query => ({
   query,
 });
 
-export const updateSort = sort => ({
-  type: actions.SORT_UPDATE,
-  sort,
-});
