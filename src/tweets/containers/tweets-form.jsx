@@ -76,6 +76,8 @@ class TweetsForm extends Component {
             <option>None</option>
             <option>Favorite Count</option>
             <option>Retweet Count</option>
+            <option>Alphabetical (name)</option>
+            <option>Alphabetical (twitter handle)</option>
           </Field>
         </div>
         <button type="submit">Search</button>

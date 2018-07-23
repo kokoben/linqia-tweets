@@ -15,6 +15,10 @@ const getSortedTweets = (tweets, count, sort) => {
     sortedList.sort((a, b) => b.retweet_count - a.retweet_count);
   } else if (sort === 'Favorite Count') {
     sortedList.sort((a, b) => b.favorite_count - a.favorite_count);
+  } else if (sort === 'Alphabetical (name)') {
+    sortedList.sort((a, b) => a.user.name.localeCompare(b.user.name));
+  } else if (sort === 'Alphabetical (twitter handle)') {
+    sortedList.sort((a, b) => a.user.screen_name.localeCompare(b.user.screen_name));
   }
 
   // return the number of tweets equal to count
