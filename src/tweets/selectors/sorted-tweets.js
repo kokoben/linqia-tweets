@@ -11,10 +11,10 @@ const getSortedTweets = (tweets, count, sort) => {
 
   // first sort the list.
   const sortedList = tweets.slice();
-  if (sort === 'retweetsCount') {
+  if (sort === 'Retweet  Count') {
     sortedList.sort((a, b) => b.retweet_count - a.retweet_count);
-  } else if (sort === 'favoritesCount') {
-    sortedList.sort((a, b) => b.favoriteCount - a.favoriteCount);
+  } else if (sort === 'Favorite Count') {
+    sortedList.sort((a, b) => b.favorite_count - a.favorite_count);
   }
 
   // return the number of tweets equal to count

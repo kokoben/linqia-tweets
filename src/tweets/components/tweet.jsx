@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Tweet = props => (
-  <div>
-    <p><b>{props.name}</b> {props.screenName}</p>
+  <div className="tweet">
+    <p>{props.index+1}. <b>{props.name}</b> @{props.screenName}</p>
     <p>{props.text}</p>
-    <p>{props.retweetCount} {props.favoriteCount}</p>
+    <p>Retweets: {props.retweetCount} Favorites: {props.favoriteCount}</p>
   </div>
 );
 

@@ -4,7 +4,7 @@ import TweetsList from '../containers/tweets-list';
 
 const Tweets = () => (
   <div>
-    <h1>Twitter Content Lab</h1>
+    <h1 className="header">Twitter Content Lab</h1>
     <TweetsForm />
     <TweetsList />
   </div>

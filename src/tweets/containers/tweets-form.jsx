@@ -18,7 +18,7 @@ class TweetsForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <div>
           <label>Hash Tags</label>
           <Field name="hashtags" component="input" />
@@ -51,14 +51,20 @@ TweetsForm.propTypes = {
   getTweets: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  initialValues: {
+    count: 10,
+    sort: 'none',
+  },
+});
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getTweets,
   }, dispatch)
 );
 
-TweetsForm = connect(null, mapDispatchToProps)(TweetsForm);
-
-export default reduxForm({
+TweetsForm = reduxForm({
   form: 'tweets',
 })(TweetsForm);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TweetsForm);
