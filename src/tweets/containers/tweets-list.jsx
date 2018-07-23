@@ -28,21 +28,21 @@ class TweetsList extends Component {
     console.log('in render', this.props.sortedTweets);
     if (this.props.loading) {
       return (
-        <div className="list">
+        <div className="message">
           Loading...
         </div>
       );
     }
     if (!this.props.tweets) {
       return (
-        <div className="list">
+        <div className="message">
           Enter some hashtags.
         </div>
       );
     }
     if (this.props.sortedTweets.length === 0) {
       return (
-        <div className="list">
+        <div className="message">
           No tweets found.
         </div>
       );
