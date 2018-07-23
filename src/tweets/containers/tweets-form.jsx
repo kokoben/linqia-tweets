@@ -48,7 +48,7 @@ class TweetsForm extends Component {
     // join arr of hashtags back into a string with spaces between each hashtag.
     const queryStr = queryArrTrimmed.join(' OR ');
     console.log('trimmed query str', queryStr);
-    this.props.getTweets(values.hashtags);
+    this.props.getTweets(queryStr);
   }
 
   render() {
