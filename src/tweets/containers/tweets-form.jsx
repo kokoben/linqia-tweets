@@ -45,7 +45,6 @@ export const formatQuery = query => {
     // replace the old hashtag with the new hashtag.
     queryArrTrimmed[i] = hashtag;
   }
-  console.log('trimmed query arr', queryArrTrimmed);
   // join arr of hashtags back into a string with spaces between each hashtag.
   const queryStr = queryArrTrimmed.join(' OR ');
   return queryStr;
@@ -75,7 +74,6 @@ class TweetsForm extends Component {
   onSubmit(values) {
     const query = values.hashtags;
     const formattedQueryStr = formatQuery(query);
-    console.log('trimmed query str', formattedQueryStr);
     // show loading message and then make the search.
     this.props.updateLoading(true);
     this.props.getTweets(formattedQueryStr);
