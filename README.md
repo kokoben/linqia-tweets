@@ -2,7 +2,7 @@
 
 [demo](http://linqia-tweets.s3-website-us-west-1.amazonaws.com/)
 
-Dashboard to N sorted tweets with one or more hashtags. Users can list up to 100 tweets, and can sort by favorite count, retweet count, and alphabetically by either name or twitter handle.
+Dashboard to display N sorted tweets with one or more hashtags. Users can list up to 100 tweets, and can sort by favorite count, retweet count, and alphabetically by either name or twitter handle.
 
 #### Technologies and libraries used:
 - React/Redux
