@@ -7,7 +7,7 @@ const countSelector = state => state.form.tweets.values.count;
 const sortSelector = state => state.form.tweets.values.sort;
 
 const getSortedTweets = (tweets, count, sort) => {
-  if (!tweets) return null;
+  if (!tweets || tweets.message === "Failed to fetch") return null;
 
   // first sort the list. don't bother sorting it if sort is set to none.
   const sortedList = tweets.statuses.slice();

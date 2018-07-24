@@ -64,13 +64,18 @@ export function* getTweetsAsync(action) {
     };
 
     // send the request
-    const data = yield call(callApi.register, action.query, options);
+    const { response, error } = yield call(callApi.register, action.query, options);
     // upon receiving the response, change loading status to false.
     yield put({ type: actions.LOADING_UPDATE, loading: false });
-    // update state with the response data.
-    yield put({ type: actions.TWEETS_GET_SUCCESS, data });
+    // if successful, update state with the response data.
+    if (response) {
+      yield put({ type: actions.TWEETS_GET_SUCCESS, data: response });
+    } else {
+      // otherwise, error out and update state to display failed msg.
+      yield put({ type: actions.TWEETS_GET_FAIL, failed: true });
+    }
   } catch (e) {
-    yield put({ type: actions.TWEETS_GET_FAIL, message: e.message });
+    yield put({ type: actions.TWEETS_GET_FAIL, failed: true });
   }
 }
 

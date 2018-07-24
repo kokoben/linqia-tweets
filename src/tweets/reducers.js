@@ -6,9 +6,6 @@ export const tweets = (state = null, action) => {
   switch (action.type) {
     case actions.TWEETS_GET_SUCCESS:
       return action.data;
-    case actions.TWEETS_GET_FAIL:
-      console.log(action.message);
-      break;
     default:
       return state;
   }
@@ -24,7 +21,17 @@ export const loading = (state = false, action) => {
   }
 };
 
+export const loadingFailed = (state = false, action) => {
+  switch (action.type) {
+    case actions.TWEETS_GET_FAIL:
+      return action.failed;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   tweets,
   loading,
+  loadingFailed,
 });

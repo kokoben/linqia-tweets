@@ -11,6 +11,7 @@ class TweetsList extends Component {
   }
 
   listTweets() {
+    if (!tweets) return null;
     const tweets = this.props.sortedTweets.map((tweet, index) => (
       <Tweet
         index={index}
@@ -25,7 +26,13 @@ class TweetsList extends Component {
     return tweets;
   }
   render() {
-    console.log('in render', this.props.sortedTweets);
+    if (this.props.loadingFailed) {
+      return (
+        <div className="message error">
+          Failed to load tweets.
+        </div>
+      );
+    }
     if (this.props.loading) {
       return (
         <div className="message">
@@ -40,7 +47,7 @@ class TweetsList extends Component {
         </div>
       );
     }
-    if (this.props.sortedTweets.length === 0) {
+    if (this.props.sortedTweets && this.props.sortedTweets.length === 0) {
       return (
         <div className="message">
           No tweets found.
@@ -61,6 +68,7 @@ TweetsList.propTypes = {
   sortedTweets: PropTypes.array,
   tweets: PropTypes.object,
   loading: PropTypes.bool.isRequired,
+  loadingFailed: PropTypes.bool.isRequired,
 };
 /* eslint-enable */
 
@@ -68,6 +76,7 @@ const mapStateToProps = state => ({
   tweets: state.tweets.tweets,
   sortedTweets: TweetsSelector(state),
   loading: state.tweets.loading,
+  loadingFailed: state.tweets.loadingFailed,
 });
 
 export default connect(mapStateToProps, null)(TweetsList);
