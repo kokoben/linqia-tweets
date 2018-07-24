@@ -25,6 +25,8 @@ export const loadingFailed = (state = false, action) => {
   switch (action.type) {
     case actions.TWEETS_GET_FAIL:
       return action.failed;
+    case actions.TWEETS_GET_SUCCESS:
+      return action.failed;
     default:
       return state;
   }

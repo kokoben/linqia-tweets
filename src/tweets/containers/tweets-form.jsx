@@ -11,7 +11,7 @@ const validate = values => {
     errors.hashtags='Enter at least one hashtag!';
   }
   return errors;
-}
+};
 
 class TweetsForm extends Component {
   constructor(props) {
@@ -19,7 +19,6 @@ class TweetsForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.renderHashtagsInput = this.renderHashtagsInput.bind(this);
   }
-
 
   renderHashtagsInput({ input, meta, label}) {
     return (
@@ -34,11 +33,10 @@ class TweetsForm extends Component {
     );
   }
 
-  onSubmit(values) {
+  formatQuery(query) {
     // parse query by trimming spaces and adding hashtags if necessary.
     // if there's more than one hashtag, add OR operators between them
     // to get tweets that contain one more of those hashtags.
-    const query = values.hashtags;
     const queryArr = query.split(' ');
     // get rid of empty strings caused by multiple spaces between search terms.
     const queryArrTrimmed = [];
@@ -70,10 +68,16 @@ class TweetsForm extends Component {
     console.log('trimmed query arr', queryArrTrimmed);
     // join arr of hashtags back into a string with spaces between each hashtag.
     const queryStr = queryArrTrimmed.join(' OR ');
-    console.log('trimmed query str', queryStr);
+    return queryStr;
+  }
+
+  onSubmit(values) {
+    const query = values.hashtags;
+    const formattedQueryStr = this.formatQuery(query);
+    console.log('trimmed query str', formattedQueryStr);
     // show loading message and then make the search.
     this.props.updateLoading(true);
-    this.props.getTweets(queryStr);
+    this.props.getTweets(formattedQueryStr);
   }
 
   render() {

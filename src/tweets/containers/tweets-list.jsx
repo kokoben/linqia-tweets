@@ -11,7 +11,7 @@ class TweetsList extends Component {
   }
 
   listTweets() {
-    if (!tweets) return null;
+    if (!this.props.tweets) return null;
     const tweets = this.props.sortedTweets.map((tweet, index) => (
       <Tweet
         index={index}
