@@ -25,7 +25,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run build-fix && react-scripts build",
+    "build-fix": "sed -i '/index.js/d' node_modules/oauth-signature/node_modules/uri-js/package.json",
     "deploy": "aws s3 sync build/ s3://linqia-tweets",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
