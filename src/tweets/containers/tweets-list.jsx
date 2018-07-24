@@ -26,13 +26,6 @@ class TweetsList extends Component {
     return tweets;
   }
   render() {
-    if (this.props.loadingFailed) {
-      return (
-        <div className="message error">
-          Failed to load tweets.
-        </div>
-      );
-    }
     if (this.props.loading) {
       return (
         <div className="message">
@@ -40,6 +33,15 @@ class TweetsList extends Component {
         </div>
       );
     }
+
+    if (this.props.loadingFailed) {
+      return (
+        <div className="message error">
+          Failed to load tweets.
+        </div>
+      );
+    }
+
     if (!this.props.tweets) {
       return (
         <div className="message">
@@ -47,6 +49,7 @@ class TweetsList extends Component {
         </div>
       );
     }
+
     if (this.props.sortedTweets && this.props.sortedTweets.length === 0) {
       return (
         <div className="message">
@@ -54,6 +57,7 @@ class TweetsList extends Component {
         </div>
       );
     }
+
     const tweets = this.listTweets();
     return (
       <div className="list">
