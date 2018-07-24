@@ -50,6 +50,10 @@ p {
   font-size: 0.8em;
 }
 
+.error {
+  color: red;
+}
+
 .hashtags-input, .count-selector, .sort-selector {
   width: 100%;
   margin-top: 5px;

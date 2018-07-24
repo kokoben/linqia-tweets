@@ -5,10 +5,33 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { getTweets, updateLoading} from '../actions';
 
+const validate = values => {
+  const errors = {};
+  if (!values.hashtags) {
+    errors.hashtags='Enter at least one hashtag!';
+  }
+  return errors;
+}
+
 class TweetsForm extends Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
+    this.renderHashtagsInput = this.renderHashtagsInput.bind(this);
+  }
+
+
+  renderHashtagsInput({ input, meta, label}) {
+    return (
+        <div>
+          <label>{label}</label>
+          <input className="hashtags-input" {...input} />
+          {meta.error && meta.submitFailed &&
+            <span className="tip error">
+              {meta.error}
+            </span>}
+        </div>
+    );
   }
 
   onSubmit(values) {
@@ -56,11 +79,8 @@ class TweetsForm extends Component {
   render() {
     return (
       <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <div className="hashtags-field">
-          <label>Hash Tags</label>
-          <Field className="hashtags-input" name="hashtags" component="input" />
-          <span className="tip">(Enter each hashtag with or without the '#'. Separate each hashtag with a space.)</span>
-        </div>
+        <Field name="hashtags" label="Hashtags" component={this.renderHashtagsInput} />
+        <span className="tip">(Enter each hashtag with or without the '#'. Separate each hashtag with a space.)</span>
         <div>
           <label>Count</label>
           <Field className="count-selector" name="count" component="select">
@@ -107,6 +127,7 @@ const mapDispatchToProps = dispatch => (
 
 TweetsForm = reduxForm({
   form: 'tweets',
+  validate,
 })(TweetsForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(TweetsForm);
