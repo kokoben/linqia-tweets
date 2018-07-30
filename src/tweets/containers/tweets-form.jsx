@@ -3,17 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { getTweets, updateLoading} from '../actions';
+import { getTweets, updateLoading } from '../actions';
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
   if (!values.hashtags) {
-    errors.hashtags='Enter at least one hashtag!';
+    errors.hashtags = 'Enter at least one hashtag!';
   }
   return errors;
 };
 
-export const formatQuery = query => {
+export const formatQuery = (query) => {
   // parse query by trimming spaces and adding hashtags if necessary.
   // if there's more than one hashtag, add OR operators between them
   // to get tweets that contain one more of those hashtags.
@@ -48,7 +48,7 @@ export const formatQuery = query => {
   // join arr of hashtags back into a string with spaces between each hashtag.
   const queryStr = queryArrTrimmed.join(' OR ');
   return queryStr;
-}
+};
 
 class TweetsForm extends Component {
   constructor(props) {

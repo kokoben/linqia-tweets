@@ -49,7 +49,6 @@ export function* getTweetsAsync(action) {
     // generate a BASE64 encoded HMAC-SHA1 hash
     // eslint-disable-next-line max-len
     const signature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret, { encodeSignature: false });
-    console.log('signature', signature);
 
     const options = {
       method: 'get',
@@ -64,8 +63,7 @@ export function* getTweetsAsync(action) {
     };
 
     // send the request
-    const response  = yield call(callApi.register, action.query, options);
-    console.log('response', response);
+    const response = yield call(callApi.register, action.query, options);
     // upon receiving the response, change loading status to false.
     yield put({ type: actions.LOADING_UPDATE, loading: false });
     // if successful, update state with the response data.
