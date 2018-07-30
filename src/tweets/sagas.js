@@ -18,7 +18,6 @@ const getRandStr = (length) => {
 
 const callApi = {
   register(query, options) {
-    console.log('encoded query', encodeURIComponent(query));
     return fetch('https://morning-anchorage-36313.herokuapp.com/https://api.twitter.com/1.1/search/tweets.json?q=' + encodeURIComponent(query) + '&count=100', options)
       .then(response => response.json())
       .catch(error => error)
